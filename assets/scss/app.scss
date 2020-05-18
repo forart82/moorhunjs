@@ -1,0 +1,198 @@
+@import "~bootstrap/scss/bootstrap";
+@import url("https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap");
+
+$sigmar: "Sigmar One", cursive;
+
+$border: rgb(55, 46, 80);
+$text: rgb(255, 255, 0);
+$textHover: rgb(202, 64, 64);
+
+body {
+    background-color: lightgray;
+    overflow: hidden;
+}
+
+#moorhun {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 10vh 80vh 10vh;
+    justify-items: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background: rgb(24, 63, 114);
+    z-index: 0;
+    #moorhunSplash {
+        grid-column: 1/1;
+        grid-row: 1/1;
+        width: 5vw;
+        height: 5vh;
+        background-image: url("/content/svg/splash.svg");
+        background-repeat: no-repeat;
+        z-index: 3;
+    }
+    #moorhunKills {
+        grid-column: 2/2;
+        grid-row: 1/1;
+        font-size: 4vh;
+        font-family: $sigmar;
+        color: $text;
+        z-index: 2;
+    }
+    #moorhunPause {
+        grid-column: 12/12;
+        grid-row: 1/1;
+        width: 3vw;
+        height: 3vh;
+        background: url("/content/svg/pauseYellow.svg");
+        background-repeat: no-repeat;
+        background-size: contain;
+        z-index: 3;
+        &:hover {
+            background: url("/content/svg/pauseRed.svg");
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+    }
+    #moorhunPlay {
+        display: none;
+        grid-column: 12/12;
+        grid-row: 1/1;
+        width: 3vw;
+        height: 3vh;
+        background: url("/content/svg/playYellow.svg");
+        background-repeat: no-repeat;
+        background-size: contain;
+        z-index: 3;
+        &:hover {
+            background: url("/content/svg/playRed.svg");
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+    }
+    #moorhunField {
+        grid-column: 1 / span all;
+        grid-row: 2/2;
+        height: 80vh;
+        width: 100vw;
+        background: rgb(12, 12, 65);
+        z-index: 1;
+    }
+    #moorhunClip {
+        grid-column: 1 / span 3;
+        grid-row: 3/3;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        .moorhunBullets {
+            align-self: center;
+            width: 3vw;
+            height: 3vh;
+            background-image: url("/content/svg/bulletBlack.svg");
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+    }
+    #moorhunReload {
+        grid-column: 6/ 8;
+        grid-row: 3/3;
+        background: rgb(12, 12, 65);
+        width: 200px;
+        height: 40px;
+        background: green;
+        display: flex;
+        border-radius: 15px;
+        justify-content: center;
+        align-items: center;
+        z-index: 3;
+        p {
+            color: $text;
+            font-size: 36px;
+            margin-top: 15px;
+            font-family: $sigmar;
+            &:hover {
+                color: $textHover;
+            }
+        }
+    }
+    .moorhuns {
+        position: absolute;
+        left: -60px;
+        width: 60px;
+        height: 60px;
+        z-index: 4;
+        overflow: hidden;
+        cursor: none;
+    }
+    .moorhunsDead {
+        position: absolute;
+        left: -60px;
+        width: 60px;
+        height: 60px;
+        z-index: 4;
+        overflow: hidden;
+    }
+    .moorhunHoles {
+        position: absolute;
+        width: 3vw;
+        height: 3vh;
+        background-image: url("/content/png/hole.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        z-index: 2;
+    }
+    .moorhunTraps {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        background: url("/content/svg/trap.svg");
+        background-repeat: no-repeat;
+        background-size: contain;
+        z-index: 2;
+    }
+    #moorhunMenu {
+        grid-column: 1 / span all;
+        grid-row: 2/2;
+        display: flex;
+        margin: auto;
+        width: 100%;
+        height: 200px;
+        z-index: 5;
+        #moorhunStart {
+            display: flex;
+            width: 150px;
+            height: 40px;
+            margin: auto;
+            background: green;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            p {
+                color: $text;
+                font-size: 36px;
+                margin-top: 15px;
+                font-family: $sigmar;
+                &:hover {
+                    color: $textHover;
+                }
+            }
+        }
+    }
+}
+#crosshair {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: url("/content/svg/aim.svg");
+    z-index: 3;
+}
+#warning {
+    position: absolute;
+    top: 50%;
+    left: 50%; /* à 50%/50% du parent référent */
+    transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
+    font-family: $sigmar;
+    font-size: 10vh;
+    color: $text;
+    z-index: 2;
+}
