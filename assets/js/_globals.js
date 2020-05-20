@@ -16,6 +16,11 @@ global.kills = 0;
 global.bulletType='black';
 global.isHit = false;
 global.traps=0;
+global.fps=60;
+global.isRunning=true;
+global.fpsCounter=0;
+global.time = new Date().getTime();
+
 
 global.mhStart = $('#moorhunStart');
 global.height = global.mh.height();
@@ -25,7 +30,7 @@ global.vw = $(window).width();
 global.vhBorder = (global.vh * 20) / 100;
 global.vwBorder = (global.vw * 5) / 100;
 global.speed = 5000 + global.vw;
-global.delay = 1000;
+global.delay = 500;
 
 
 

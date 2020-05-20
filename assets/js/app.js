@@ -14,7 +14,7 @@ import $ from 'jquery';
 import './_globals';
 import './_globalmethods';
 
-$(document).ready(function () {
+$(document).ready(function (event) {
 
   require('./crosshair');
   require('./moorhuns');
@@ -23,4 +23,7 @@ $(document).ready(function () {
   require('./clip');
   require('./shoot');
   require('./reload');
+  require('./gameloop');
+
+  run(event);
 });

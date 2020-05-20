@@ -2,21 +2,21 @@ $(document).on('mousedown', function (event) {
   if (global.start == true) {
     global.removeBullet(global.counterB++);
     if (global.counterB <= global.bullets) {
-      global.checkCollision(event);
-    }
-    switch (global.bulletType) {
-      case 'red':
-        bulletRed();
-        break;
-      case 'blue':
-        bulletBlue();
-        break;
-      case 'black':
-        bulletGreen(event);
-        break;
+      global.checkCollisionBullets(event);
+      switch (global.bulletType) {
+        case 'red':
+          bulletRed();
+          break;
+        case 'blue':
+          bulletBlue();
+          break;
+        case 'black':
+          bulletGreen(event);
+          break;
 
-      default:
-        break;
+        default:
+          break;
+      }
     }
   }
 })
@@ -28,7 +28,6 @@ global.createHole = function (x, y, counter) {
     $(`#moorhunHole${counter}`).remove();
   }, 2000));
 }
-
 function bulletRed() {
   if (global.isHit) {
     let kill = true;
@@ -56,6 +55,6 @@ function bulletGreen(event) {
   if (global.isHit) {
     let posx = event.pageX;
     let posy = event.pageY;
-    $('#moorhun').append(`<div id="moorhunTrap${global.traps++}" class="moorhunTraps" style="top:${posy}px;left:${posx}px;"></div>`)
+    $('#moorhun').append(`<img src="/content/png/trapOpen.png" id="moorhunTrap${global.traps++}" class="moorhunTraps" style="top:${posy-30}px;left:${posx}px;">`)
   }
 }

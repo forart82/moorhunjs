@@ -14,7 +14,7 @@ function changeColor(){
     isTrue = true;
   }
   interval = (global.bullets - global.counterB) * 100;
-  interval=(interval>100?interval:100);
+  interval = (interval > 100 ? interval : 100);
   clearInterval(run);
   run = setInterval(changeColor, interval);
   if(interval<300)

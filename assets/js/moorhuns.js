@@ -1,37 +1,33 @@
 
-setInterval(function () {
-  if (global.start == true) {
-    createMoorhun(global.counterMh++);
-    if (global.counter % 10 == 0) {
-      if (global.delay > global.difficultyDelay * 2) {
-        global.delay -= global.difficultyDelay;
-      }
-      if (global.speed > global.difficultySpeed * 2)
-        global.speed -= global.difficultySpeed;
-    }
-  }
-
-}, global.delay)
-
-function createMoorhun(counter) {
+global.createMoorhun = function (counter) {
   let top = Math.floor(Math.random() * (global.height));
-  if (top < global.vhBorder+10) {
-    top = global.vhBorder+10;
+  if (top < global.vhBorder + 10) {
+    top = global.vhBorder + 10;
   }
-  if (top > global.height - (global.vhBorder+70)) {
-    top = global.height - (global.vhBorder+70);
+  if (top > global.height - (global.vhBorder + 70)) {
+    top = global.height - (global.vhBorder + 70);
   }
   global.mh.append(`<img class="moorhuns"id="moorhun${counter}"src="/content/png/tomato.png">`)
 
   let mhs = $('#moorhun' + counter);
   mhs.css('top', top + 'px');
   mhs.animate({
-    left: `+=${global.width+360}`
+    left: `+=${global.width + 360}`
   }, global.speed, function () {
     global.removeMoorhun(counter)
   });
 }
 
+global.calcMoorhunDelay = function () {
+  if (global.counterMh % 10 == 0) {
+    if (global.delay > global.difficultyDelay * 2) {
+      global.delay -= global.difficultyDelay;
+    }
+    if (global.speed > global.difficultySpeed * 2) {
+      global.speed -= global.difficultySpeed;
+    }
+  }
+}
 
 global.killMoorhun = function (moorhun) {
   moorhun.addClass('moorhunsDead');
@@ -48,4 +44,8 @@ global.killMoorhun = function (moorhun) {
   moorhun.fadeOut(2000).queue(setTimeout(function () {
     moorhun.remove();
   }, 2000));
+}
+
+global.removeMoorhun = function (counter) {
+  $('#moorhun' + counter).remove();
 }

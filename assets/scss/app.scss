@@ -88,7 +88,7 @@ body {
             align-self: center;
             width: 3vw;
             height: 3vh;
-            background-image: url("/content/svg/bulletBlack.svg");
+            background-image: url("/content/svg/bulletBlack2.svg");
             background-repeat: no-repeat;
             background-size: contain;
         }
@@ -145,9 +145,12 @@ body {
         position: absolute;
         width: 60px;
         height: 60px;
-        background: url("/content/svg/trap.svg");
-        background-repeat: no-repeat;
-        background-size: contain;
+        z-index: 2;
+    }
+    .moorhunTrapsDead {
+        position: absolute;
+        width: 60px;
+        height: 60px;
         z-index: 2;
     }
     #moorhunMenu {
@@ -195,4 +198,14 @@ body {
     font-size: 10vh;
     color: $text;
     z-index: 2;
+}
+
+#fps {
+    position: absolute;
+    top: 200px;
+    left: 200px;
+    font-family: $sigmar;
+    font-size: 36px;
+    color: $text;
+    z-index: 5;
 }
