@@ -35,13 +35,7 @@ $('#moorhunPlay').on('click', function () {
 
 
 function play() {
-  $('.moorhuns').each(function () {
-    $(this).animate({
-      left: `+=${global.width}`
-    }, global.speed, function () {
-        global.removeMoorhun(global.counterMh)
-    });
-  })
+
   global.start = true;
   $('#moorhunPlay').hide();
   $('#moorhunPause').show();

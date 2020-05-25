@@ -11,11 +11,6 @@ global.createMoorhun = function (counter) {
 
   let mhs = $('#moorhun' + counter);
   mhs.css('top', top + 'px');
-  mhs.animate({
-    left: `+=${global.width + 360}`
-  }, global.speed, function () {
-    global.removeMoorhun(counter)
-  });
 }
 
 global.calcMoorhunDelay = function () {
@@ -46,6 +41,26 @@ global.killMoorhun = function (moorhun) {
   }, 2000));
 }
 
-global.removeMoorhun = function (counter) {
-  $('#moorhun' + counter).remove();
+global.moorhunRemove = function (moorhun) {
+  let pos = moorhun.css('left');
+  pos = parseFloat(pos.substr(0, pos.length - 2));
+  if(global.width<pos)
+  {
+    moorhun.remove();
+  }
+}
+
+global.moorhunUpdate = function (time) {
+  $.each($('.moorhuns'), function (key, value) {
+    let moorhun = $(this);
+    global.moorhunMove(moorhun,time);
+    global.moorhunRemove(moorhun);
+  });
+}
+
+global.moorhunMove = function (moorhun,time) {
+  let speed = 0.000000000001;
+  let pos = moorhun.css('left');
+  pos = parseFloat(pos.substr(0, pos.length - 2));
+  moorhun.css('left', pos + speed * time)
 }

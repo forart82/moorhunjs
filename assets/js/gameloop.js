@@ -1,54 +1,42 @@
 
 
 
-
-global.run= async function(event) {
-  let startTime = new Date().getTime();
-
+let tFps = new Date().getTime();
+let delayTime = 0
+global.run = async function (event) {
+  let tLap = new Date().getTime();
+  let tTpf = 1000 / 10;
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
   while (global.isRunning) {
-
-    if (new Date().getTime() - 1000 < startTime) {
-      if (global.fpsCounter < global.fps) {
-
-      }
-      else
-      {
-        await sleep(startTime +1 - new Date().getTime());
-      }
+    event();
+    tLap = new this.Date().getTime();
+    if (tLap > tTpf) {
+      tLap -= tTpf;
+      update(event, tTpf);
     }
-    else {
-
-      global.fpsCounter = 0;
-      startTime = new Date().getTime();
-    }
-
-    update(event)
-    draw();
-
-
+    update(event, tLap);
+    await sleep(0);
   }
 }
 
-function update(event) {
-
-  if (new Date().getTime() > global.time+global.delay)
-  {
-    global.time=new Date().getTime();
+function update(event, time) {
+  if (time > delayTime + global.delay) {
+    delayTime = time;
     global.createMoorhun(global.counterMh++);
     global.calcMoorhunDelay();
   }
-
-  if(new Date().getTime()%4==0)
-  {
+  if (new Date().getTime() % 4 == 0) {
     global.checkCollisionTraps();
-
   }
-
+  global.moorhunUpdate(time);
+  fps();
 }
 
-function draw() {
+fps = function () {
   global.fpsCounter++;
-  $('#fps').text(global.fpsCounter);
-  // console.log(global.fpsCounter);
+  if (new Date().getTime() - tFps > 1000) {
+    tFps = new Date().getTime();
+    $('#fps').text(global.fpsCounter);
+    global.fpsCounter = 0;
+  }
 }
