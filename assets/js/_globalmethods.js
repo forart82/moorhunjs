@@ -6,8 +6,6 @@ $(window).resize(function () {
   global.vw = $(window).width();
   global.vhBorder = (global.vh * 10) / 100;
   global.vwBorder = (global.vw * 5) / 100;
-  global.speed = 5000 + global.vw;
-  global.delay = 1000;
 })
 
 global.hideElements = function () {

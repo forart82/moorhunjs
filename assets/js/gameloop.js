@@ -1,22 +1,17 @@
 
 
-let tFps = new Date().getTime();
+let fpsTime = new Date().getTime();
+let fpsCounter=0;
 let delayTime = 0
 let lastRender = 0;
-let canvas = document.getElementById("moorhunField");
-let width = canvas.width;
-let height = canvas.height;
-console.log(width,height);
-let rect=canvas.getContext("2d");
-rect.fillStyle="#0055aa";
-let circle=canvas.getContext("2d");
-circle.fillStyle="red";
+
+
 window.requestAnimationFrame(loop);
 
 function loop(timestamp) {
   var progress = timestamp - lastRender;
   event();
-  update(progress);
+  update(progress,timestamp);
   draw();
   lastRender = timestamp;
   window.requestAnimationFrame(loop);
@@ -25,35 +20,25 @@ function loop(timestamp) {
 function event() {
 }
 
-function update(time) {
-  if (time > delayTime + global.delay) {
-    delayTime = time;
-    global.createMoorhun(global.counterMh++);
-    global.calcMoorhunDelay();
-  }
+function update(time, timestamp) {
+  moorhunUpdate(time,timestamp);
+
   if (new Date().getTime() % 4 == 0) {
     global.checkCollisionTraps();
   }
-  global.moorhunUpdate(time);
   fps();
 }
 
 function draw() {
 
-  circle.beginPath();
-  circle.arc(75,75,50,0,2*Math.PI);
-  circle.fillRect(0, 0, width-10, height)
-  circle.stroke();
-  rect.clearRect(0,0,50,50);
-  rect.fillRect(0, 0, 50, 50);
 }
 
 function fps() {
-  global.fpsCounter++;
-  if (new Date().getTime() - tFps > 1000) {
-    tFps = new Date().getTime();
-    $('#fps').text(global.fpsCounter);
-    global.fpsCounter = 0;
+  fpsCounter++
+  if (new Date().getTime() - fpsTime > 1000) {
+    fpsTime = new Date().getTime();
+    $('#fps').text(fpsCounter);
+    fpsCounter = 0;
   }
 }
 
