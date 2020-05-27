@@ -10,6 +10,10 @@ setInterval(function () {
 }, 500);
 
 
+updateMenu =function(){
+
+}
+
 global.hideElements();
 
 $('#moorhunStart').on('click', function (event) {

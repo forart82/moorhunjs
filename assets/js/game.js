@@ -1,27 +1,47 @@
+import { FALSE } from "node-sass";
 
 
 let fpsTime = new Date().getTime();
-let fpsCounter=0;
+let fpsCounter = 0;
 let delayTime = 0
 let lastRender = 0;
+let running = true;
 
 
 window.requestAnimationFrame(loop);
 
 function loop(timestamp) {
   var progress = timestamp - lastRender;
+
   event();
-  update(progress,timestamp);
+  update(progress, timestamp);
   draw();
+
   lastRender = timestamp;
   window.requestAnimationFrame(loop);
 }
 
 function event() {
+  $(document).on('keyup', function (event) {
+    // if (event.keyCode == 32) {
+    //   switch (running) {
+    //     case true:
+    //       running = false;
+    //       break;
+    //     case false:
+    //       running = true;
+    //       break;
+    //     default:
+    //       break;
+    //   }
+    // }
+    console.log(event.keyCode);
+  })
 }
 
 function update(time, timestamp) {
-  moorhunUpdate(time,timestamp);
+
+  moorhunsUpdate(time, timestamp);
 
   if (new Date().getTime() % 4 == 0) {
     global.checkCollisionTraps();

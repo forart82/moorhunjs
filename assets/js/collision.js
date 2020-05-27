@@ -9,7 +9,7 @@ global.checkCollisionBullets = function (event) {
     if (mhLeft <= posx && mhLeft + 60 >= posx &&
       mhTop <= posy && mhTop + 60 >= posy
     ) {
-      global.killMoorhun($(this));
+      $(this).attr('data-kill','true');
       $('#moorhunKills').text(++global.kills)
       global.isHit = true;
     }

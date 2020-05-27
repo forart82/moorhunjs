@@ -2,12 +2,12 @@
 let startTime = 0;
 let moorhunCounter = 1;
 let delay = 5000;
-let speed=1;
-let difficultyDelay=10;
-let difficultySpeed=1;
-let changeDifficulty=false;
+let speed = 1;
+let difficultyDelay = 10;
+let difficultySpeed = 0.1;
+let changeDifficulty = false;
 
-createMoorhun = function (time, timestamp) {
+moorhunsCreate = function (time, timestamp) {
   if (timestamp > startTime + delay) {
     let top = Math.floor(Math.random() * (global.height));
     if (top < global.vhBorder + 10) {
@@ -22,54 +22,53 @@ createMoorhun = function (time, timestamp) {
     mhs.css('top', top + 'px');
 
     startTime = timestamp;
+    moorhunsCalcDifficulty();
   }
 }
 
-// TODO show if global varibale is needed!
-calcMoorhunDelay = function () {
-  if (moorhunCounter % 5 == 0  && changeDifficulty) {
-      delay -= difficultyDelay;
-      console.log(moorhunCounter,delay);
-      speed -= difficultySpeed;
-      changeDifficulty=false;
-  }
-  else{
-    changeDifficulty=true;
-    console.log(moorhunCounter,delay,"else");
+moorhunsCalcDifficulty = function () {
+  if (moorhunCounter % 5 == 0) {
+    delay -= difficultyDelay;
+    console.log(moorhunCounter, delay);
+    speed += difficultySpeed;
   }
 }
 
-killMoorhun = function (moorhun) {
-  moorhun.addClass('moorhunsDead');
-  moorhun.removeClass('moorhuns');
-  moorhun.dequeue();
-  moorhun.fadeOut(80).queue(function () {
-    moorhun.attr('src', '/content/png/splash.png');
-    moorhun.fadeIn(80);
+// Animantion and remove function if moorhun is hit.
+moorhunsKillAnimation = function (moorhun) {
+  if (moorhun.attr('data-kill') == "true") {
+    moorhun.addClass('moorhunsDead');
+    moorhun.removeClass('moorhuns');
     moorhun.dequeue();
-  });
-  moorhun.queue();
-  moorhun.stop();
-  moorhun.dequeue();
-  moorhun.fadeOut(2000).queue(setTimeout(function () {
-    moorhun.remove();
-  }, 2000));
+    moorhun.fadeOut(80).queue(function () {
+      moorhun.attr('src', '/content/png/splash.png');
+      moorhun.fadeIn(80);
+      moorhun.dequeue();
+    });
+    moorhun.queue();
+    moorhun.stop();
+    moorhun.dequeue();
+    moorhun.fadeOut(2000).queue(setTimeout(function () {
+      moorhun.remove();
+    }, 2000));
+  }
 }
 
 
 // Update
-moorhunUpdate = function (time, timestamp) {
-  createMoorhun(time, timestamp);
-  calcMoorhunDelay();
+moorhunsUpdate = function (time, timestamp) {
+
+  moorhunsCreate(time, timestamp);
 
   $.each($('.moorhuns'), function (key, value) {
     let moorhun = $(this);
-    moorhunMove(moorhun, time);
-    moorhunRemove(moorhun);
+    moorhunsMove(moorhun, time);
+    moorhunsOutOfBounds(moorhun);
+    moorhunsKillAnimation(moorhun);
   });
 }
 
-moorhunRemove = function (moorhun) {
+moorhunsOutOfBounds = function (moorhun) {
   let pos = moorhun.css('left');
   pos = parseFloat(pos.substr(0, pos.length - 2));
   if (global.width < pos) {
@@ -77,7 +76,7 @@ moorhunRemove = function (moorhun) {
   }
 }
 
-moorhunMove = function (moorhun, time) {
+moorhunsMove = function (moorhun, time) {
   let pos = moorhun.css('left');
   pos = parseFloat(pos.substr(0, pos.length - 2));
   moorhun.css('left', pos + speed)
