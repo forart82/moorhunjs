@@ -25,5 +25,4 @@ $(document).ready(function (event) {
   require('./reload');
   require('./gameloop');
 
-  run(event);
 });

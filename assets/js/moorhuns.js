@@ -41,6 +41,16 @@ global.killMoorhun = function (moorhun) {
   }, 2000));
 }
 
+
+// Update
+global.moorhunUpdate = function (time) {
+  $.each($('.moorhuns'), function (key, value) {
+    let moorhun = $(this);
+    global.moorhunMove(moorhun,time);
+    global.moorhunRemove(moorhun);
+  });
+}
+
 global.moorhunRemove = function (moorhun) {
   let pos = moorhun.css('left');
   pos = parseFloat(pos.substr(0, pos.length - 2));
@@ -50,17 +60,11 @@ global.moorhunRemove = function (moorhun) {
   }
 }
 
-global.moorhunUpdate = function (time) {
-  $.each($('.moorhuns'), function (key, value) {
-    let moorhun = $(this);
-    global.moorhunMove(moorhun,time);
-    global.moorhunRemove(moorhun);
-  });
-}
-
 global.moorhunMove = function (moorhun,time) {
-  let speed = 0.000000000001;
+  let speed = 1;
   let pos = moorhun.css('left');
   pos = parseFloat(pos.substr(0, pos.length - 2));
-  moorhun.css('left', pos + speed * time)
+  moorhun.css('left', pos + speed)
 }
+
+//Draw
